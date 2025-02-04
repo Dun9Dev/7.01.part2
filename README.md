@@ -95,6 +95,29 @@
 Модифицируйте плейбук из пункта 3, задания 1. В качестве приветствия он должен установить IP-адрес и hostname управляемого хоста, пожелание хорошего дня системному администратору. 
 
 
+modify_motd_with_host_details.yml
+   
+```
+---
+- name: Change MOTD with host details
+  hosts: local
+  become: yes
+  tasks:
+    - name: Gather facts
+      setup:
+
+    - name: Update MOTD file with host details
+      copy:
+        content: |
+          Hostname: {{ ansible_hostname }}
+          IP Address: {{ ansible_default_ipv4.address }}
+          Have a great day, SysAdmin!
+        dest: /etc/motd
+
+```
+
+![alt text](https://github.com/Dun9Dev/8.02HW/blob/main/img/Screenshot_20250205_005242.png)
+
 
 ### Задание 3
 

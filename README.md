@@ -1,3 +1,6 @@
+# Домашнее задание к занятию "Ansible.Часть 2" - `Шестовских Даниил`
+---
+
 ### Задание 1
 
 **Выполните действия, приложите файлы с плейбуками и вывод выполнения.**
@@ -138,3 +141,36 @@ modify_motd_with_host_details.yml
 - разместите архив созданной роли у себя на Google диске и приложите ссылку на роль в своём решении;
 - предоставьте скриншоты выполнения плейбука;
 - предоставьте скриншот браузера, отображающего сконфигурированный index.html в качестве сайта.
+
+### Решение 3
+
+apache_playbook.yml
+```
+---
+- name: Configure Apache server using role
+  hosts: local
+  become: yes
+  roles:
+    - apache
+
+  tasks:
+    - name: Check website availability
+      uri:
+        url: "http://{{ ansible_default_ipv4.address }}"
+        return_content: yes
+      register: result
+
+    - name: Display website status
+      debug:
+        msg: "Website is available with status code {{ result.status }}"
+
+```
+
+
+https://drive.google.com/file/d/1wtIxVHW0FavllzRAoW4RikUAKwlTb7no/view?usp=sharing
+
+
+
+
+![alt text](https://github.com/Dun9Dev/8.02HW/blob/main/img/Screenshot_20250210_094630.png)
+![alt text](https://github.com/Dun9Dev/8.02HW/blob/main/img/Screenshot_20250210_100339.png)
